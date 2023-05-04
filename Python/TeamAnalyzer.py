@@ -1,5 +1,7 @@
 import sqlite3
-import sys     # This helps with command-line parameters
+import sys
+
+# This helps with command-line parameters
 connection = sqlite3.connect('../pokemon.sqlite')
 cursor = connection.cursor()
 
@@ -23,6 +25,8 @@ for i, arg in enumerate(sys.argv):
     #Getting the list of names
     name = "SELECT name FROM pokemon WHERE pokedex_number = " + arg
     p_name = cursor.execute(name).fetchone()
+    n_name =(str(p_name)[1:-1])
+
     #Getting the list of types
     type12 = "SELECT type1, type2 FROM pokemon_types_view WHERE name = '" + p_name[0] + "'"
     tp = cursor.execute(type12).fetchall()
@@ -52,15 +56,16 @@ for i, arg in enumerate(sys.argv):
         elif ag[0][i] < 1.0:
             weak_against.append(type_dict[i])
 
-    print(f"{p_name} ({type1} {type2}) is strong against {strong_against} but weak against {weak_against}")
+    print(f"{n_name} ({type1} {type2}) is strong against {strong_against} but weak against {weak_against}")
 
-#   answer = input("Would you like to save this team? (Y)es or (N)o: ")
+
+#answer = input("Would you like to save this team? (Y)es or (N)o: ")
 
 #if answer.upper() == "Y" or answer.upper() == "YES":
- #       teamName = input("Enter the team name: ")
+#       teamName = input("Enter the team name: ")
 
     #Write the pokemon team to the "teams" table
- #   print("Saving " + teamName + " ...")
+#print("Saving " + teamName + " ...")
 #else:
- #   print("Bye for now!")
+#print("Bye for now!")
 
